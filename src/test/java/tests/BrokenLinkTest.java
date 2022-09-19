@@ -23,6 +23,7 @@ public class BrokenLinkTest {
 	      // driver.manage().deleteAllCookies();
 	       
 	       //dynamic wait
+	       int resCode =200;
 	       
 			ChromeOptions options =	new ChromeOptions();
 			options.addArguments("disable-notifications");
@@ -64,10 +65,16 @@ public class BrokenLinkTest {
 	
 	 for(int i = 0; i<linkList.size();i++) {
  	   System.out.println(linkList.get(i).getAttribute("href"));
- 	   if(linkList.get(i).getAttribute("href")== null )
+ 	   if(linkList.get(i).getAttribute("href")== null || linkList.get(i).getAttribute("href").isEmpty())
  	   {
  		   brokenLinks.add(linkList.get(i));
- 	
+ 		   System.out.println("Url is either not configured or it is empty");
+ 		   continue;
+ 	   }
+ 	   
+ 	   if(!linkList.get(i).getAttribute("href").startsWith("https://hapleaf.com")) {
+ 		   System.out.println("URL belongs to another domain, skipping it");
+ 		   continue;
  	   }
 	 }
  		System.out.println("Size of broken links and images--"+ brokenLinks.size());
@@ -75,7 +82,22 @@ public class BrokenLinkTest {
  		for(int j=0;j<brokenLinks.size();j++) {
  			
  			  HttpURLConnection htc1 =(HttpURLConnection)new URL(brokenLinks.get(j).getAttribute("href")).openConnection();
- 			  
+ 			  try {
+ 				  htc1.setRequestMethod("HEAD");
+ 				  htc1.connect();
+ 				  resCode = htc1.getResponseCode();
+ 				  if(resCode>=400) {
+ 					  System.out.println(resCode+ linkList.get(j).getAttribute("href")+ "url is broken");
+ 				  }
+ 				  else
+ 				  {
+ 					  System.out.println("url is valid link");
+ 				  }
+ 			  }catch(MalformedURLException e)
+ 			  {e.printStackTrace();}
+ 			  catch(IOException e) {
+ 				  e.printStackTrace();
+ 			  }
  			  htc1.connect();
  			  
  			  String response1 =  htc1.getResponseMessage();
