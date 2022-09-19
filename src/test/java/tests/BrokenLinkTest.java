@@ -59,8 +59,9 @@ public class BrokenLinkTest {
 		  htc.connect();
 		  
 		  String response =  htc.getResponseMessage();
+		  resCode = htc.getResponseCode();
 		  htc.disconnect();
-		  System.out.println(activeLinks.get(j).getAttribute("href")+"----->"+response);
+		  System.out.println(activeLinks.get(j).getAttribute("href")+"----->"+response+"----"+resCode);
 	}
 	
 	 for(int i = 0; i<linkList.size();i++) {
@@ -101,8 +102,9 @@ public class BrokenLinkTest {
  			  htc1.connect();
  			  
  			  String response1 =  htc1.getResponseMessage();
+ 			  resCode = htc1.getResponseCode();
  			  htc1.disconnect();
- 			  System.out.println(brokenLinks.get(j).getAttribute("href")+"----->"+response1);
+ 			  System.out.println(brokenLinks.get(j).getAttribute("href")+"----->"+response1+"----"+resCode);
  		}
  	       	   
     }
