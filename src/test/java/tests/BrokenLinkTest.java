@@ -88,7 +88,7 @@ public class BrokenLinkTest {
  				  htc1.connect();
  				  resCode = htc1.getResponseCode();
  				  if(resCode>=400) {
- 					  System.out.println(resCode+ linkList.get(j).getAttribute("href")+ "url is broken");
+ 					  System.out.println(resCode+ linkList.get(j).getAttribute("href")+ "url is  broken ---");
  				  }
  				  else
  				  {
@@ -104,7 +104,7 @@ public class BrokenLinkTest {
  			  String response1 =  htc1.getResponseMessage();
  			  resCode = htc1.getResponseCode();
  			  htc1.disconnect();
- 			  System.out.println(brokenLinks.get(j).getAttribute("href")+"----->"+response1+"----"+resCode);
+ 			  System.out.println(brokenLinks.get(j).getAttribute("href")+"----->"+response1+"----"+resCode+"--");
  		}
  	       	   
     }
